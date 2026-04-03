@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System Preview: QBank DAM (Light)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky-blue: #1DABE2;
+    --dark-blue: #1980AA;
+    --electric-blue: #3c61ef;
+    --drive-blue: #2A66FF;
+    --navy: #023E58;
+    --indigo: #01005f;
+    --lead: #030067;
+    --dark: #25292A;
+    --white: #ffffff;
+    --purple: #737FEC;
+    --dark-purple: #4A5BA5;
+    --light-purple: #B9BEF6;
+    --lightest-purple: #E4E4F9;
+    --green: #299778;
+    --light-green: #DCFBEC;
+    --yellow: #F9AF49;
+    --light-yellow: #FFF4E7;
+    --orange: #E8560D;
+    --pulse: #FEE2EC;
+    --focus-blue: #C3D9FF;
+    --white-blue: #F2FBFF;
+    --light-blue: #BFDCF6;
+    --base: #F2F0ED;
+    --light: #F1F2F4;
+    --gray: #5a585a;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --border: #dee2e6;
+    --focus-ring: rgba(13,110,253,0.25);
+    --font-primary: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--white);
+    color: var(--indigo);
+    font-family: var(--font-primary);
+    font-size: 18px; font-weight: 400; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 32px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-brand { font-size: 18px; font-weight: 700; color: var(--navy); text-decoration: none; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 15px; font-weight: 400; color: var(--navy); text-decoration: none; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--sky-blue); }
+  .nav-cta {
+    display: inline-block; background: var(--green); color: var(--white);
+    padding: 10px 24px; border-radius: 35px; font-size: 15px; font-weight: 700;
+    text-decoration: none; transition: background 0.15s;
+  }
+  .nav-cta:hover { background: #237f65; }
+
+  /* HERO */
+  .hero { padding: 96px 32px 80px; text-align: center; }
+  .hero h1 {
+    font-size: 2.625rem; font-weight: 800; line-height: 1.0;
+    color: var(--indigo); margin-bottom: 20px;
+  }
+  .hero p { font-size: 1.25rem; font-weight: 400; line-height: 1.6; color: var(--gray-600); max-width: 600px; margin: 0 auto 36px; }
+  .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-block; background: var(--electric-blue); color: var(--white);
+    padding: 1rem 2rem; border-radius: 35px; border: none;
+    font-family: var(--font-primary); font-size: 1.15rem; font-weight: 700;
+    text-decoration: none; cursor: pointer; transition: background 0.15s;
+  }
+  .btn-primary:hover { background: #3050d0; }
+  .btn-ghost {
+    display: inline-block; background: transparent; color: var(--navy);
+    padding: 1rem 2rem; border-radius: 35px;
+    border: 1px solid var(--navy);
+    font-family: var(--font-primary); font-size: 1.15rem; font-weight: 700;
+    text-decoration: none; cursor: pointer; transition: background 0.15s;
+  }
+  .btn-ghost:hover { background: rgba(2,62,88,0.05); }
+
+  /* SECTIONS */
+  .section { padding: 64px 32px; max-width: 1240px; margin: 0 auto; }
+  .section-label { font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--gray-600); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .section-title { font-size: 2.25rem; font-weight: 700; line-height: 1.0; margin-bottom: 36px; color: var(--indigo); }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  /* COLORS */
+  .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .color-swatch { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+  .color-swatch-block { height: 72px; width: 100%; }
+  .color-swatch-info { padding: 10px 12px; }
+  .color-swatch-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; color: var(--indigo); }
+  .color-swatch-hex { font-size: 12px; color: var(--gray-600); font-family: var(--font-mono); }
+  .color-swatch-role { font-size: 11px; color: var(--gray-600); margin-top: 3px; font-weight: 400; }
+  .color-group-label { font-size: 15px; font-weight: 700; color: var(--navy); margin: 28px 0 12px; }
+
+  /* TYPOGRAPHY */
+  .type-sample { margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .type-sample:last-child { border-bottom: none; }
+  .type-meta { font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--gray-600); margin-top: 8px; }
+
+  /* BUTTONS */
+  .button-row { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .button-item { text-align: center; }
+  .button-label { font-size: 12px; font-weight: 400; color: var(--gray-600); margin-top: 10px; }
+  .btn-secondary {
+    display: inline-block; background: var(--navy); color: var(--white);
+    padding: 0.75rem 1.5rem; border-radius: 35px; font-size: 1rem; font-weight: 700;
+    text-decoration: none; border: none;
+  }
+  .btn-green {
+    display: inline-block; background: var(--green); color: var(--white);
+    padding: 0.75rem 1.5rem; border-radius: 35px; font-size: 1rem; font-weight: 700;
+    text-decoration: none; border: none;
+  }
+  .btn-light {
+    display: inline-block; background: var(--base); color: var(--lead);
+    padding: 0.75rem 1.5rem; border-radius: 35px; font-size: 1rem; font-weight: 700;
+    text-decoration: none; border: none;
+  }
+  .btn-outline {
+    display: inline-block; background: transparent; color: var(--navy);
+    padding: 0.75rem 1.5rem; border-radius: 35px; font-size: 1rem; font-weight: 700;
+    text-decoration: none; border: 1px solid var(--navy);
+  }
+  .badge-feature {
+    display: inline-block; padding: 0.25rem 0.75rem; border-radius: 1.25rem;
+    font-size: 0.875rem; font-weight: 700;
+  }
+
+  /* CARDS */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+  .card {
+    border-radius: 1.5rem; padding: 32px;
+    transition: transform 0.2s ease;
+  }
+  .card:hover { transform: translateY(-2px); }
+  .card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 10px; color: var(--indigo); }
+  .card p { font-size: 1rem; color: var(--gray-600); line-height: 1.6; font-weight: 400; }
+  .card-badge { display: inline-block; font-size: 0.8rem; font-weight: 700; padding: 0.2rem 0.65rem; border-radius: 1rem; margin-bottom: 14px; }
+
+  /* FORMS */
+  .form-group { margin-bottom: 24px; max-width: 440px; }
+  .form-label { display: block; font-size: 1.1rem; font-weight: 700; color: var(--lead); margin-bottom: 8px; }
+  .form-input {
+    width: 100%; background: var(--white); color: var(--lead);
+    border: 1px solid var(--gray-400); padding: 0.5rem 1rem; border-radius: 0.25rem;
+    font-family: var(--font-primary); font-size: 1.1rem; font-weight: 400; outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .form-input:focus { border-color: #86b7fe; box-shadow: 0 0 0 0.25rem rgba(13,110,253,0.25); }
+  .form-input--focus { border-color: #86b7fe; box-shadow: 0 0 0 0.25rem rgba(13,110,253,0.25); }
+  .form-input--error { border-color: #dc3545; box-shadow: 0 0 0 0.25rem rgba(220,53,69,0.25); }
+  .form-textarea {
+    width: 100%; min-height: 90px; background: var(--white); color: var(--lead);
+    border: 1px solid var(--gray-400); padding: 0.5rem 1rem; border-radius: 0.25rem;
+    font-family: var(--font-primary); font-size: 1.1rem; font-weight: 400; resize: vertical; outline: none;
+  }
+  .form-state-label { font-size: 12px; color: var(--gray-600); margin-top: 6px; font-weight: 400; }
+
+  /* SPACING */
+  .spacing-row { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+  .spacing-item { text-align: center; }
+  .spacing-block { background: var(--sky-blue); border-radius: 4px; margin-bottom: 6px; height: 32px; }
+  .spacing-value { font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: var(--gray-600); }
+
+  /* RADIUS */
+  .radius-row { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+  .radius-item { text-align: center; }
+  .radius-box { width: 72px; height: 72px; background: var(--sky-blue); margin-bottom: 6px; }
+  .radius-label { font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: var(--gray-600); }
+  .radius-context { font-size: 10px; color: var(--gray-600); font-weight: 400; }
+
+  /* ELEVATION */
+  .elevation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
+  .elevation-card { border-radius: 1.5rem; padding: 24px; text-align: center; }
+  .elevation-label { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--indigo); }
+  .elevation-desc { font-family: var(--font-mono); font-size: 11px; color: var(--gray-600); }
+
+  /* DARK SECTION */
+  .dark-section {
+    background: var(--navy); padding: 80px 32px; margin: 0;
+  }
+  .dark-section .section { padding: 0; }
+  .dark-section .section-label { color: rgba(255,255,255,0.5); }
+  .dark-section .section-title { color: var(--white); }
+  .dark-section p { color: rgba(255,255,255,0.75); font-size: 1.25rem; line-height: 1.6; max-width: 640px; }
+  .dark-section .btn-on-dark {
+    display: inline-block; background: var(--base); color: var(--lead);
+    padding: 1rem 2rem; border-radius: 35px; font-size: 1.15rem; font-weight: 700;
+    text-decoration: none; margin-top: 24px;
+  }
+
+  /* FOOTER */
+  .footer { padding: 40px 32px; text-align: center; border-top: 1px solid var(--border); font-size: 14px; color: var(--gray-600); font-weight: 400; }
+  .footer a { color: var(--sky-blue); text-decoration: underline; }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .hero p { font-size: 1rem; }
+    .nav-links { display: none; }
+    .section { padding: 48px 20px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .dark-section { padding: 48px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-brand" href="#">QBank DAM</a>
+  <ul class="nav-links">
+    <li><a href="#colors">Colors</a></li>
+    <li><a href="#typography">Typography</a></li>
+    <li><a href="#buttons">Buttons</a></li>
+    <li><a href="#cards">Cards</a></li>
+    <li><a href="#forms">Forms</a></li>
+    <li><a href="#spacing">Spacing</a></li>
+  </ul>
+  <a class="nav-cta" href="#">Book a Demo</a>
+</nav>
+
+<section class="hero">
+  <h1>Design System<br>Inspired by QBank DAM</h1>
+  <p>A design token catalog generated from DESIGN.md. Every color, font, component, and spacing value -- visualized.</p>
+  <div class="hero-buttons">
+    <a class="btn-primary" href="#">Book a Demo</a>
+    <a class="btn-ghost" href="#">Explore Features</a>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="colors">
+  <div class="section-label">01 / Colors</div>
+  <h2 class="section-title">Color Palette</h2>
+
+  <div class="color-group-label">Primary</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#1DABE2"></div><div class="color-swatch-info"><div class="color-swatch-name">Sky Blue</div><div class="color-swatch-hex">#1DABE2</div><div class="color-swatch-role">Brand primary</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#023E58"></div><div class="color-swatch-info"><div class="color-swatch-name">Dark Navy</div><div class="color-swatch-hex">#023E58</div><div class="color-swatch-role">Brand black</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#01005f"></div><div class="color-swatch-info"><div class="color-swatch-name">Deep Indigo</div><div class="color-swatch-hex">#01005f</div><div class="color-swatch-role">Body text</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#ffffff; border-bottom:1px solid #dee2e6"></div><div class="color-swatch-info"><div class="color-swatch-name">White</div><div class="color-swatch-hex">#ffffff</div><div class="color-swatch-role">Page background</div></div></div>
+  </div>
+
+  <div class="color-group-label">CTA & Action</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#3c61ef"></div><div class="color-swatch-info"><div class="color-swatch-name">Electric Blue</div><div class="color-swatch-hex">#3c61ef</div><div class="color-swatch-role">Primary CTA</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#1980AA"></div><div class="color-swatch-info"><div class="color-swatch-name">Dark Blue</div><div class="color-swatch-hex">#1980AA</div><div class="color-swatch-role">Hover, secondary</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#2A66FF"></div><div class="color-swatch-info"><div class="color-swatch-name">Drive Blue</div><div class="color-swatch-hex">#2A66FF</div><div class="color-swatch-role">High-emphasis</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#030067"></div><div class="color-swatch-info"><div class="color-swatch-name">Deep Lead</div><div class="color-swatch-hex">#030067</div><div class="color-swatch-role">Max contrast text</div></div></div>
+  </div>
+
+  <div class="color-group-label">Accent</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#737FEC"></div><div class="color-swatch-info"><div class="color-swatch-name">Purple</div><div class="color-swatch-hex">#737FEC</div><div class="color-swatch-role">Secondary accent</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#4A5BA5"></div><div class="color-swatch-info"><div class="color-swatch-name">Dark Purple</div><div class="color-swatch-hex">#4A5BA5</div><div class="color-swatch-role">Purple hover</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#299778"></div><div class="color-swatch-info"><div class="color-swatch-name">Green</div><div class="color-swatch-hex">#299778</div><div class="color-swatch-role">Success, CTA alt</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#F9AF49"></div><div class="color-swatch-info"><div class="color-swatch-name">Yellow</div><div class="color-swatch-hex">#F9AF49</div><div class="color-swatch-role">Warning</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#E8560D"></div><div class="color-swatch-info"><div class="color-swatch-name">Orange</div><div class="color-swatch-hex">#E8560D</div><div class="color-swatch-role">Urgent accent</div></div></div>
+  </div>
+
+  <div class="color-group-label">Surface & Tint</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#F2FBFF"></div><div class="color-swatch-info"><div class="color-swatch-name">White Blue</div><div class="color-swatch-hex">#F2FBFF</div><div class="color-swatch-role">Light blue surface</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#F2F0ED"></div><div class="color-swatch-info"><div class="color-swatch-name">Warm Base</div><div class="color-swatch-hex">#F2F0ED</div><div class="color-swatch-role">Nordic cream</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#E4E4F9"></div><div class="color-swatch-info"><div class="color-swatch-name">Lightest Purple</div><div class="color-swatch-hex">#E4E4F9</div><div class="color-swatch-role">Purple surface</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#DCFBEC"></div><div class="color-swatch-info"><div class="color-swatch-name">Light Green</div><div class="color-swatch-hex">#DCFBEC</div><div class="color-swatch-role">Success surface</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#FFF4E7"></div><div class="color-swatch-info"><div class="color-swatch-name">Light Yellow</div><div class="color-swatch-hex">#FFF4E7</div><div class="color-swatch-role">Warning surface</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#BFDCF6"></div><div class="color-swatch-info"><div class="color-swatch-name">Light Blue</div><div class="color-swatch-hex">#BFDCF6</div><div class="color-swatch-role">Info surface</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#FEE2EC"></div><div class="color-swatch-info"><div class="color-swatch-name">Pulse Pink</div><div class="color-swatch-hex">#FEE2EC</div><div class="color-swatch-role">Decorative</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#C3D9FF"></div><div class="color-swatch-info"><div class="color-swatch-name">Focus Blue</div><div class="color-swatch-hex">#C3D9FF</div><div class="color-swatch-role">Focus surface</div></div></div>
+  </div>
+
+  <div class="color-group-label">Neutral Scale</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#f8f9fa"></div><div class="color-swatch-info"><div class="color-swatch-name">Gray 100</div><div class="color-swatch-hex">#f8f9fa</div><div class="color-swatch-role">Lightest bg</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#e9ecef"></div><div class="color-swatch-info"><div class="color-swatch-name">Gray 200</div><div class="color-swatch-hex">#e9ecef</div><div class="color-swatch-role">Disabled bg</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#dee2e6"></div><div class="color-swatch-info"><div class="color-swatch-name">Gray 300</div><div class="color-swatch-hex">#dee2e6</div><div class="color-swatch-role">Borders</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#ced4da"></div><div class="color-swatch-info"><div class="color-swatch-name">Gray 400</div><div class="color-swatch-hex">#ced4da</div><div class="color-swatch-role">Input borders</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#adb5bd"></div><div class="color-swatch-info"><div class="color-swatch-name">Gray 500</div><div class="color-swatch-hex">#adb5bd</div><div class="color-swatch-role">Placeholder</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#6c757d"></div><div class="color-swatch-info"><div class="color-swatch-name">Gray 600</div><div class="color-swatch-hex">#6c757d</div><div class="color-swatch-role">Secondary text</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#5a585a"></div><div class="color-swatch-info"><div class="color-swatch-name">Gray</div><div class="color-swatch-hex">#5a585a</div><div class="color-swatch-role">Tertiary text</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#25292A"></div><div class="color-swatch-info"><div class="color-swatch-name">Dark</div><div class="color-swatch-hex">#25292A</div><div class="color-swatch-role">Near-black</div></div></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="typography">
+  <div class="section-label">02 / Typography</div>
+  <h2 class="section-title">Typography Scale</h2>
+
+  <div class="type-sample"><div style="font-size:2.625rem; font-weight:800; line-height:1.0; color:var(--indigo);">Display Hero</div><div class="type-meta">Display Hero -- 2.625rem (47.25px) / 800 / 1.0 / Outfit</div></div>
+  <div class="type-sample"><div style="font-size:2.25rem; font-weight:700; line-height:1.0; color:var(--indigo);">Section Heading</div><div class="type-meta">Section Heading -- 2.25rem (40.5px) / 700 / 1.0 / Outfit</div></div>
+  <div class="type-sample"><div style="font-size:1.6rem; font-weight:700; line-height:1.2; color:var(--indigo);">Sub-heading Large</div><div class="type-meta">Sub-heading Large -- 1.6rem (28.8px) / 700 / 1.2 / Outfit</div></div>
+  <div class="type-sample"><div style="font-size:1.4rem; font-weight:700; line-height:1.2; color:var(--indigo);">Sub-heading</div><div class="type-meta">Sub-heading -- 1.4rem (25.2px) / 700 / 1.2 / Outfit</div></div>
+  <div class="type-sample"><div style="font-size:1.25rem; font-weight:700; line-height:1.2; color:var(--indigo);">Sub-heading Small</div><div class="type-meta">Sub-heading Small -- 1.25rem (22.5px) / 700 / 1.2 / Outfit</div></div>
+  <div class="type-sample"><div style="font-size:1.25rem; font-weight:400; line-height:1.6; color:var(--gray-600);">Body Large -- Centralize, organize, and distribute your digital assets with QBank DAM. Built in Sweden since 2003.</div><div class="type-meta">Body Large -- 1.25rem (22.5px) / 400 / 1.6 / Outfit</div></div>
+  <div class="type-sample"><div style="font-size:1rem; font-weight:400; line-height:1.6; color:var(--gray-600);">Body -- Standard reading text for descriptions and feature explanations.</div><div class="type-meta">Body -- 1rem (18px) / 400 / 1.6 / Outfit</div></div>
+  <div class="type-sample"><div style="font-size:1.15rem; font-weight:700; line-height:1.5; color:var(--indigo);">Button Text</div><div class="type-meta">Button -- 1.15rem (20.7px) / 700 / 1.5 / Outfit</div></div>
+  <div class="type-sample"><div style="font-size:1.1rem; font-weight:400; line-height:1.5; color:var(--lead);">Form Input Text</div><div class="type-meta">Form Input -- 1.1rem (19.8px) / 400 / 1.5 / Outfit</div></div>
+  <div class="type-sample"><div style="font-size:0.875rem; font-weight:400; line-height:1.5; color:var(--gray-600);">Small -- Captions and fine print</div><div class="type-meta">Small -- 0.875rem (15.75px) / 400 / 1.5 / Outfit</div></div>
+  <div class="type-sample"><div style="font-family:var(--font-mono); font-size:0.875rem; font-weight:400; line-height:1.5; color:var(--gray-600);">const qbank = new QBankAPI({ key: 'api_...' });</div><div class="type-meta">Code -- 0.875rem (15.75px) / 400 / 1.5 / Monospace</div></div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="buttons">
+  <div class="section-label">03 / Buttons</div>
+  <h2 class="section-title">Button Variants</h2>
+  <div class="button-row">
+    <div class="button-item"><a class="btn-primary" href="#" style="padding:0.75rem 1.5rem; font-size:1rem;">Book a Demo</a><div class="button-label">Primary CTA</div></div>
+    <div class="button-item"><a class="btn-secondary" href="#">Learn More</a><div class="button-label">Secondary Navy</div></div>
+    <div class="button-item"><a class="btn-green" href="#">Get Started</a><div class="button-label">Green CTA</div></div>
+    <div class="button-item"><a class="btn-light" href="#">Explore</a><div class="button-label">Light / Surface</div></div>
+    <div class="button-item"><a class="btn-outline" href="#">Contact</a><div class="button-label">Ghost / Outlined</div></div>
+  </div>
+  <div style="margin-top:32px;">
+    <div class="color-group-label">Badges</div>
+    <div class="button-row">
+      <div class="button-item"><span class="badge-feature" style="background:#E4E4F9; color:#4A5BA5;">AI Tagging</span><div class="button-label">Purple Badge</div></div>
+      <div class="button-item"><span class="badge-feature" style="background:#DCFBEC; color:#299778;">Active</span><div class="button-label">Green Badge</div></div>
+      <div class="button-item"><span class="badge-feature" style="background:#F2FBFF; color:#1980AA;">CDN</span><div class="button-label">Blue Badge</div></div>
+      <div class="button-item"><span class="badge-feature" style="background:#FFF4E7; color:#E8560D;">Beta</span><div class="button-label">Yellow Badge</div></div>
+      <div class="button-item"><span class="badge-feature" style="background:#FEE2EC; color:#d63384;">New</span><div class="button-label">Pink Badge</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="cards">
+  <div class="section-label">04 / Cards</div>
+  <h2 class="section-title">Card Examples</h2>
+  <div class="card-grid">
+    <div class="card" style="background: var(--white-blue);">
+      <div class="card-badge" style="background:#BFDCF6; color:#1980AA;">DAM</div>
+      <h3>Content Hub</h3>
+      <p>Centralize all digital assets in one searchable hub. AI-powered tagging, metadata configuration, and smart search.</p>
+    </div>
+    <div class="card" style="background: var(--lightest-purple);">
+      <div class="card-badge" style="background:#B9BEF6; color:#4A5BA5;">Automation</div>
+      <h3>Workflow Pipelines</h3>
+      <p>Automate from tagging to publishing. Customizable approval chains, consent management, and analytics.</p>
+    </div>
+    <div class="card" style="background: var(--light-green);">
+      <div class="card-badge" style="background:rgba(41,151,120,0.2); color:#299778;">Integrations</div>
+      <h3>45+ Connectors</h3>
+      <p>Connect QBank to Sitecore, Drupal, Salesforce, Adobe Creative Cloud, and more with native plugins.</p>
+    </div>
+  </div>
+</section>
+
+<div class="dark-section">
+  <section class="section">
+    <div class="section-label">Brand Section</div>
+    <h2 class="section-title">The Power of Digital Asset Management</h2>
+    <p>Eliminate frustrating asset hunts, shorten time-to-market, ensure brand consistency, and reduce storage costs. Built in Sweden since 2003.</p>
+    <a class="btn-on-dark" href="#">Explore QBank</a>
+  </section>
+</div>
+
+<hr class="section-divider">
+
+<section class="section" id="forms">
+  <div class="section-label">05 / Forms</div>
+  <h2 class="section-title">Form Elements</h2>
+  <div class="form-group"><label class="form-label">Asset Name</label><input class="form-input" type="text" placeholder="Enter asset name"><div class="form-state-label">Default</div></div>
+  <div class="form-group"><label class="form-label">Metadata Tag</label><input class="form-input form-input--focus" type="text" value="product-photography"><div class="form-state-label">Focus (blue ring)</div></div>
+  <div class="form-group"><label class="form-label">Email Address</label><input class="form-input form-input--error" type="text" value="invalid-email"><div class="form-state-label">Error (red ring)</div></div>
+  <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" placeholder="Add a description for this asset..."></textarea></div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="spacing">
+  <div class="section-label">06 / Spacing</div>
+  <h2 class="section-title">Spacing Scale</h2>
+  <div class="spacing-row">
+    <div class="spacing-item"><div class="spacing-block" style="width:4px"></div><div class="spacing-value">0.25rem</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:8px"></div><div class="spacing-value">0.5rem</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:16px"></div><div class="spacing-value">1rem</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:24px"></div><div class="spacing-value">1.5rem</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:32px"></div><div class="spacing-value">2rem</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:40px"></div><div class="spacing-value">2.5rem</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:48px"></div><div class="spacing-value">3rem</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:64px"></div><div class="spacing-value">4rem</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:80px"></div><div class="spacing-value">5rem</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:120px"></div><div class="spacing-value">7.5rem</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:160px"></div><div class="spacing-value">10rem</div></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="radius">
+  <div class="section-label">07 / Radius</div>
+  <h2 class="section-title">Border Radius</h2>
+  <div class="radius-row">
+    <div class="radius-item"><div class="radius-box" style="border-radius:0.25rem"></div><div class="radius-label">0.25rem</div><div class="radius-context">Inputs</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:0.5rem"></div><div class="radius-label">0.5rem</div><div class="radius-context">Compact cards</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:1rem"></div><div class="radius-label">1rem</div><div class="radius-context">Standard</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:1.5rem"></div><div class="radius-label">1.5rem</div><div class="radius-context">Feature cards</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:2rem"></div><div class="radius-label">2rem</div><div class="radius-context">Hero cards</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:35px"></div><div class="radius-label">35px</div><div class="radius-context">Buttons (pill)</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:50%"></div><div class="radius-label">50%</div><div class="radius-context">Circles</div></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="section" id="elevation">
+  <div class="section-label">08 / Elevation</div>
+  <h2 class="section-title">Elevation (Flat Design)</h2>
+  <div class="elevation-grid">
+    <div class="elevation-card" style="background: var(--white); border: 1px solid var(--border);"><div class="elevation-label">Level 0: Flat</div><div class="elevation-desc">White, no shadow</div></div>
+    <div class="elevation-card" style="background: var(--white-blue);"><div class="elevation-label">Level 1: Blue Tint</div><div class="elevation-desc">#F2FBFF surface</div></div>
+    <div class="elevation-card" style="background: var(--base);"><div class="elevation-label">Level 1: Warm Tint</div><div class="elevation-desc">#F2F0ED surface</div></div>
+    <div class="elevation-card" style="background: var(--lightest-purple);"><div class="elevation-label">Level 1: Purple Tint</div><div class="elevation-desc">#E4E4F9 surface</div></div>
+    <div class="elevation-card" style="background: var(--white); border: 1px solid var(--border); box-shadow: 0 0 0 0.25rem rgba(13,110,253,0.25);"><div class="elevation-label">Focus Ring</div><div class="elevation-desc">Blue focus outline</div></div>
+    <div class="elevation-card" style="background: var(--navy); color: white;"><div class="elevation-label" style="color:white;">Dark Surface</div><div class="elevation-desc" style="color:rgba(255,255,255,0.6);">#023E58 navy</div></div>
+  </div>
+</section>
+
+<footer class="footer">
+  Generated from <a href="https://qbankdam.com/">qbankdam.com</a> DESIGN.md -- awesome-design-md
+</footer>
+
+</body>
+</html>
